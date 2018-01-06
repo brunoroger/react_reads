@@ -46,6 +46,16 @@ class BooksApp extends React.Component {
 	});
   }
   
+  searchBook = (search) => {
+	BooksAPI.search(search).then((books) => {
+		if(!Array.isArray(books)){
+			this.setState({ booksSearch: [] });
+		}else{
+			this.setState({ booksSearch: books });
+		}
+	});
+  }
+  
   render() {
     return (
       <div className="app">
@@ -62,7 +72,7 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" onChange={(event) => { this.searchBook(event.target.value); }} placeholder="Search by title or author"/>
 
               </div>
             </div>
