@@ -1,5 +1,6 @@
 import React from 'react'
 import {Route, Link} from 'react-router-dom'
+import { Debounce } from 'react-throttle';
 import * as BooksAPI from './BooksAPI';
 import ListBooksShelf from './ListBooksShelf';
 import ListBooks from './ListBooks';
@@ -46,6 +47,8 @@ class BooksApp extends React.Component {
 		if(!Array.isArray(books)){
 			this.setState({ booksSearch: [] });
 		}else{
+			books.map(book => (this.state.books.filter((b) => b.id === book.id).map(b => book.shelf = b.shelf)))
+			
 			this.setState({ booksSearch: books });
 		}
 	});
@@ -59,7 +62,9 @@ class BooksApp extends React.Component {
             <div className="search-books-bar">
               <Link className="close-search" to="/">Close</Link>
               <div className="search-books-input-wrapper">
-                <input type="text" onChange={(event) => { this.searchBook(event.target.value); }} placeholder="Search by title or author"/>
+				<Debounce time="400" handler="onChange">
+					<input type="text" onChange={(event) => { this.searchBook(event.target.value); }} placeholder="Search by title or author"/>
+				</Debounce>
               </div>
             </div>
             <div className="search-books-results">
