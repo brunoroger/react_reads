@@ -12,16 +12,24 @@ class BooksApp extends React.Component {
 	booksSearch: [],
 	shelfs: [
 		{
+			label: "none",
+			value: "none",
+			visible: false
+		},
+		{
 			label: "Currently Reading",
-			value: "currentlyReading"
+			value: "currentlyReading",
+			visible: true
 		},
 		{
 			label: "Want to Read",
-			value: "wantToRead"
+			value: "wantToRead",
+			visible: true
 		},
 		{
 			label: "Read",
-			value: "read"
+			value: "read",
+			visible: true
 		}
 	]
   }
